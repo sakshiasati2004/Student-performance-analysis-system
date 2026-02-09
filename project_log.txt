@@ -1,0 +1,8 @@
+2026-02-09 02:41:14,221 - INFO - ===== Application Started =====
+2026-02-09 02:41:14,221 - INFO - Entered Main Menu
+2026-02-09 02:41:23,928 - INFO - User selected option: 1
+2026-02-09 02:41:23,928 - INFO - Opening Student CSV Menu
+2026-02-09 02:42:08,839 - INFO - User selected option: 5
+2026-02-09 02:42:08,839 - WARNING - Invalid choice entered
+2026-02-09 02:45:06,770 - INFO - User selected option: 4
+2026-02-09 02:45:06,771 - INFO - Application exited by user
