@@ -11,9 +11,9 @@ Roll_No,Student_ID,Name,Age,Attendance,Exam_Score,Assignment_Score,Project_Score
 110,10,Simran,16.0,82.0,79.0,76,78,11,B,Average
 101,11,Rahul,16.0,85.0,78.0,72,75,10,B,Average
 103,12,Aman,17.0,72.0,65.0,60,62,8,C,Average
-104,13,Neha,16.346938775510203,80.0,75.0,70,72,9,B,Average
-105,14,Rohit,18.0,81.08163265306122,92.0,94,96,16,A,Good
-106,15,Pooja,17.0,60.0,77.71428571428571,50,48,6,D,Poor
+104,13,Neha,23.0,80.0,75.0,70,72,9,B,Average
+105,14,Rohit,18.0,67.0,92.0,94,96,16,A,Good
+106,15,Pooja,17.0,60.0,89.0,50,48,6,D,Poor
 107,16,Ankit,16.0,70.0,68.0,65,66,8,C,Average
 108,17,Priya,15.0,88.0,84.0,86,88,13,A,Good
 109,18,Karan,17.0,78.0,74.0,70,72,9,B,Average

@@ -20,32 +20,47 @@ df = pd.read_csv(RAW_FILE)
 
 def handle_missing_values():
     """
-    Handles missing values:
-    - Numerical columns: replace NaN with mean
-    - Categorical columns: replace NaN with mode[0]
+    Handles missing values interactively:
+    - For each missing value, asks user to manually enter the value.
     """
     global df
-    null_cols = df.columns[df.isnull().any()].tolist()
-    if not null_cols:
+
+    null_locations = df[df.isnull().any(axis=1)]
+
+    if null_locations.empty:
         print("✔ No missing values found.")
         return
 
-    print(f"⚠ Missing values found in columns: {null_cols}")
+    print("⚠ Missing values detected. Please fill them manually.\n")
 
-    for col in df.columns:
-        if df[col].dtype in ['int64', 'float64']:
-            if df[col].isnull().any():
-                mean_val = df[col].mean()
-                df[col].fillna(mean_val, inplace=True)
-                print(f"  -> Filled missing numerical values in '{col}' with mean: {mean_val:.2f}")
-        else:
-            if df[col].isnull().any():
-                mode_val = df[col].mode()[0]
-                df[col].fillna(mode_val, inplace=True)
-                print(f"  -> Filled missing categorical values in '{col}' with mode: {mode_val}")
+    numeric_cols = ['Roll_No','Student_ID','Age','Attendance','Exam_Score',
+                    'Assignment_Score','Project_Score','Study_Hours_per_Week']
+
+    for index, row in df.iterrows():
+        for col in df.columns:
+            if pd.isnull(row[col]):
+
+                print(f"Row {index + 1} has missing value in column '{col}'.")
+
+                # If numeric column
+                if col in numeric_cols:
+                    while True:
+                        user_input = input(f"Enter numeric value for {col}: ")
+                        try:
+                            user_input = float(user_input)
+                            df.at[index, col] = user_input
+                            break
+                        except ValueError:
+                            print("❌ Please enter a valid numeric value.")
+                else:
+                    user_input = input(f"Enter value for {col}: ")
+                    df.at[index, col] = user_input
+
+                print(f"✔ Updated Row {index + 1}, Column '{col}'\n")
 
     df.to_csv(CLEAN_FILE, index=False)
-    print(f"✔ Missing values handled and saved to {CLEAN_FILE}\n")
+    print(f"✔ All missing values filled manually and saved to {CLEAN_FILE}\n")
+
 
 def handle_duplicate_rows():
     """
@@ -53,10 +68,10 @@ def handle_duplicate_rows():
     """
     global df
     initial_len = len(df)
-    
+
     # Remove full duplicates
     df.drop_duplicates(inplace=True)
-    
+
     # Remove duplicate Roll_No
     if 'Roll_No' in df.columns:
         df = df[df['Roll_No'].duplicated(keep='first') == False]
@@ -70,18 +85,22 @@ def handle_duplicate_rows():
     df.to_csv(CLEAN_FILE, index=False)
     print(f"✔ Updated cleaned CSV saved at {CLEAN_FILE}\n")
 
+
 def convert_columns():
     """
     Ensures numeric columns are correct types and handles any non-numeric errors.
     """
     global df
+
     numeric_cols = ['Roll_No','Student_ID','Age','Attendance','Exam_Score',
                     'Assignment_Score','Project_Score','Study_Hours_per_Week']
+
     for col in numeric_cols:
         df[col] = pd.to_numeric(df[col], errors='coerce')
 
     df.to_csv(CLEAN_FILE, index=False)
     print(f"✔ Numeric conversion done and saved to {CLEAN_FILE}\n")
+
 
 def handle_all():
     """
@@ -91,6 +110,7 @@ def handle_all():
     handle_missing_values()
     handle_duplicate_rows()
     print("✔ All preprocessing completed and saved.\n")
+
 
 # ===== Menu =====
 def menu():
@@ -124,6 +144,7 @@ def menu():
             break
         else:
             print("❌ Invalid choice! Try again.\n")
+
 
 # ===== Start Program Only if Directly Run =====
 if __name__ == "__main__":
