@@ -36,7 +36,7 @@ def average_score_by_grade():
     plt.xlabel("Grade")
     plt.ylabel("Average Total Score")
 
-    # 🔥 Add labels on bars
+    # Add labels on bars
     for container in ax.containers:
         ax.bar_label(container, fmt="%.1f")
 
@@ -59,7 +59,7 @@ def top_10_students():
     plt.ylabel("Total Score")
     plt.xticks(rotation=45)
 
-    # 🔥 Add labels on bars
+    # Add labels on bars
     for container in ax.containers:
         ax.bar_label(container, fmt="%.1f")
 
